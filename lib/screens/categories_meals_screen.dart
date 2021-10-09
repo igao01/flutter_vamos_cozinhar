@@ -77,17 +77,54 @@ class _CategoriesMealsScreenState extends State<CategoriesMealsScreen> {
         title: Text(titleAppBar),
         actions: [
           IconButton(
-            onPressed: () => Navigator.of(context).pushReplacementNamed(AppRoutes.HOME),
-            icon: Icon(Icons.home)
-          ),
+              onPressed: () =>
+                  Navigator.of(context).pushReplacementNamed(AppRoutes.HOME),
+              icon: Icon(Icons.home)),
         ],
       ),
-      body: ListView.builder(
-        itemCount: categoryMeal.length,
-        itemBuilder: (ctx, index) {
-          return MealItem(categoryMeal[index]);
-        },
-      ),
+      body: categoryMeal.isEmpty
+          ? Container(
+              width: double.infinity,
+              child: Column(
+                mainAxisAlignment: MainAxisAlignment.center,
+                crossAxisAlignment: CrossAxisAlignment.center,
+                children: [
+                  Text(
+                    'Não há receitas',
+                    style: TextStyle(
+                      fontSize: 36,
+                      color: Colors.grey[700],
+                    ),
+                  ),
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
+                      Text(
+                        'Busque em outra categoria',
+                        style: TextStyle(
+                          fontSize: 24,
+                          color: Colors.grey[700],
+                        ),
+                      ),
+                      const SizedBox(
+                        width: 10,
+                      ),
+                      Icon(
+                        Icons.sentiment_satisfied_alt,
+                        color: Colors.grey[700],
+                        size: 48,
+                      ),
+                    ],
+                  ),
+                ],
+              ),
+            )
+          : ListView.builder(
+              itemCount: categoryMeal.length,
+              itemBuilder: (ctx, index) {
+                return MealItem(categoryMeal[index]);
+              },
+            ),
     );
   }
 }
